@@ -43,3 +43,17 @@ C:\Users\pa447\AppData\Local\Temp\ccrt76Lp.o: In function `insert_test2':
 C:\Users\pa447\OneDrive\Escritorio\Uni\Progra\Labs\lab4\lab-4-rboles-binarios-de-b-squeda-Matunga-C/test.c:192: undefined reference to `insertTreeMap'
 collect2.exe: error: ld returned 1 exit status
 cdae03c
+Sun, May  4, 2025  4:00:50 PM: 
+ treemap.c | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
+Compilation failed
+In file included from test.c:4:0:
+treemap.c: In function 'insertTreeMap':
+treemap.c:50:12: error: 'return' with a value, in function returning void [-Werror]
+     return NULL;
+            ^~~~
+treemap.c:49:6: note: declared here
+ void insertTreeMap(TreeMap * tree, void* key, void * value) {
+      ^~~~~~~~~~~~~
+cc1.exe: all warnings being treated as errors
+cae08c7

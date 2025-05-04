@@ -37,6 +37,16 @@ TreeNode * createTreeNode(void* key, void * value) {
 }
 
 TreeMap * createTreeMap(int (*lower_than) (void* key1, void* key2)) {
+    TreeMap * new = (TreeMap *)malloc(sizeof(TreeMap)); // Reserva memoria para el TreeMap
+    if (new == NULL) return NULL; // Verifica si la reserva de memoria fue exitosa
+    new->root = NULL; // Inicializa el nodo raíz como NULL
+    new->current = NULL; // Inicializa el nodo actual como NULL
+    new->lower_than = lower_than;   // Asigna la función de comparación proporcionada
+    return new;
+}
+
+
+void insertTreeMap(TreeMap * tree, void* key, void * value) {
     return NULL;
 }
 
@@ -66,16 +76,16 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
     if (tree == NULL || tree->root == NULL) return NULL;
     TreeNode * current = tree->root;
     while (current != NULL) {
-        if (tree->lower_than(key, current->pair->key)) {
-            current = current->left;
-        } else if (tree->lower_than(current->pair->key, key)) {
-            current = current->right;
+        if (tree->lower_than(key, current->pair->key) == 0 && tree->lower_than(current->pair->key, key) == 0) {
+            tree->current = current; // Actualiza el nodo actual
+            return current->pair; // Retorna el par encontrado
+        } else if (tree->lower_than(key, current->pair->key)) {
+            current = current->left; // Busca en el subárbol izquierdo
         } else {
-            tree->current = current;
-            return current->pair;
+            current = current->right; // Busca en el subárbol derecho
         }
     }
-    tree->current = NULL;
+    tree->current = NULL; // Si no se encuentra el nodo, actualiza el nodo actual a NULL
     return NULL;
 }
 
