@@ -14,3 +14,14 @@ Sun, May  4, 2025  3:54:30 PM:
  tests:  5|7
 total_score: 5/70
 5210ba4
+Sun, May  4, 2025  3:58:42 PM: 
+ treemap.c | 54 +++++++++++++-----------------------------------------
+ 1 file changed, 13 insertions(+), 41 deletions(-)
+Compilation failed
+In file included from test.c:4:0:
+treemap.c: In function 'createTreeMap':
+treemap.c:41:1: error: control reaches end of non-void function [-Werror=return-type]
+ }
+ ^
+cc1.exe: all warnings being treated as errors
+3155872
