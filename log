@@ -35,3 +35,11 @@ C:\Users\pa447\AppData\Local\Temp\ccNOe2jr.o: In function `insert_test2':
 C:\Users\pa447\OneDrive\Escritorio\Uni\Progra\Labs\lab4\lab-4-rboles-binarios-de-b-squeda-Matunga-C/test.c:192: undefined reference to `insertTreeMap'
 collect2.exe: error: ld returned 1 exit status
 e74e2d7
+Sun, May  4, 2025  3:59:23 PM: 
+Compilation failed
+C:\Users\pa447\AppData\Local\Temp\ccrt76Lp.o: In function `insert_test1':
+C:\Users\pa447\OneDrive\Escritorio\Uni\Progra\Labs\lab4\lab-4-rboles-binarios-de-b-squeda-Matunga-C/test.c:175: undefined reference to `insertTreeMap'
+C:\Users\pa447\AppData\Local\Temp\ccrt76Lp.o: In function `insert_test2':
+C:\Users\pa447\OneDrive\Escritorio\Uni\Progra\Labs\lab4\lab-4-rboles-binarios-de-b-squeda-Matunga-C/test.c:192: undefined reference to `insertTreeMap'
+collect2.exe: error: ld returned 1 exit status
+cdae03c
