@@ -103,8 +103,10 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
 }
 
 TreeNode * minimum(TreeNode * x){
-
-    return NULL;
+    while (x->left != NULL) {
+        x = x->left; // Busca el nodo más pequeño en el subárbol izquierdo
+    }
+    return x; // Retorna el nodo más pequeño encontrado
 }
 
 
