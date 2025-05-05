@@ -157,7 +157,21 @@ void eraseTreeMap(TreeMap * tree, void* key){
 }
 
 Pair * upperBound(TreeMap * tree, void* key) {
-    return NULL;
+    if (tree == NULL || tree->root == NULL) return NULL; // Verifica si el árbol es NULL o está vacío
+    TreeNode * current = tree->root; // Inicializa el nodo actual como la raíz
+    TreeNode * result = NULL; // Inicializa el resultado como NULL
+
+    while (current != NULL) { // Recorre el árbol
+        if (tree->lower_than(key, current->pair->key)) { // Si la clave es menor que la del nodo actual
+            result = current; // Guarda el nodo actual como resultado
+            current = current->left; // Busca en el subárbol izquierdo
+        } else { // Si la clave es mayor o igual que la del nodo actual
+            current = current->right; // Busca en el subárbol derecho
+        }
+    }
+
+    tree->current = result; // Actualiza el nodo actual
+    return result != NULL ? result->pair : NULL; // Retorna el par encontrado o NULL si no hay más nodos
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
