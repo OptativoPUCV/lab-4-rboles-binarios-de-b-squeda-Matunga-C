@@ -62,10 +62,6 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
     return NULL;
 }
 
-/*Implemente la función void insertTreeMap(TreeMap * tree, void* key, void * value). Esta función inserta un nuevo dato (key,value) en el árbol y hace que el current apunte al nuevo nodo.
-Para insertar un dato, primero debe realizar una búsqueda para encontrar donde debería ubicarse. Luego crear el nuevo nodo y enlazarlo. Si la clave del dato ya existe retorne sin hacer nada (recuerde que el mapa no permite claves repetidas).
-*/
-
 void insertTreeMap(TreeMap * tree, void* key, void * value) {
     if (tree == NULL) return; // Verifica si el árbol es NULL
     if (searchTreeMap(tree, key) != NULL) return; // Verifica si la clave ya existe
@@ -156,22 +152,29 @@ void eraseTreeMap(TreeMap * tree, void* key){
 
 }
 
+/*La función Pair* upperBound(TreeMap* tree, void* key) retorna el **Pair** con clave igual a key. En caso de no encontrarlo retorna el primer par asociado a una clave mayor o igual a key. 
+Para implementarla puede realizar una búsqueda normal y usar un puntero a nodo auxiliar ub_node que vaya guardando el nodo con la menor clave *mayor o igual a key*. Finalmente retorne el par del nodo ub\_node.
+*/
+
 Pair * upperBound(TreeMap * tree, void* key) {
     if (tree == NULL || tree->root == NULL) return NULL; // Verifica si el árbol es NULL o está vacío
     TreeNode * current = tree->root; // Inicializa el nodo actual como la raíz
-    TreeNode * result = NULL; // Inicializa el resultado como NULL
+    TreeNode * ub_node = NULL; // Inicializa el nodo auxiliar para el upper bound
 
     while (current != NULL) { // Recorre el árbol
         if (tree->lower_than(key, current->pair->key)) { // Si la clave es menor que la del nodo actual
-            result = current; // Guarda el nodo actual como resultado
+            ub_node = current; // Actualiza el nodo auxiliar
             current = current->left; // Busca en el subárbol izquierdo
-        } else { // Si la clave es mayor o igual que la del nodo actual
+        } else { // Si la clave es mayor o igual a la del nodo actual
             current = current->right; // Busca en el subárbol derecho
         }
     }
 
-    tree->current = result; // Actualiza el nodo actual
-    return result != NULL ? result->pair : NULL; // Retorna el par encontrado o NULL si no hay más nodos
+    if (ub_node != NULL) { // Si se encontró un nodo auxiliar válido
+        return ub_node->pair; // Retorna el par encontrado
+    } else {
+        return NULL; // Si no se encontró un nodo auxiliar, retorna NULL
+    }
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
