@@ -163,7 +163,13 @@ Pair * upperBound(TreeMap * tree, void* key) {
 Pair * firstTreeMap(TreeMap * tree) {
     if (tree == NULL || tree->root == NULL) return NULL; // Verifica si el árbol es NULL o está vacío
     TreeNode * current = tree->root; // Inicializa el nodo actual como la raíz
-    return current->pair; // Retorna el nodo raíz
+
+    while (current->left != NULL) { // Busca el nodo más pequeño en el árbol
+        current = current->left; // Mueve al hijo izquierdo
+    }
+    tree->current = current; // Actualiza el nodo actual
+
+    return current->pair; // Retorna el par encontrado
 }
 
 Pair * nextTreeMap(TreeMap * tree) {
