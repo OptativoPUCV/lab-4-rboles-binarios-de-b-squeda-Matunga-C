@@ -156,19 +156,34 @@ void eraseTreeMap(TreeMap * tree, void* key){
 
 }
 
-
-
-
-
-
 Pair * upperBound(TreeMap * tree, void* key) {
     return NULL;
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
+    if (tree == NULL || tree->root == NULL) return NULL; // Verifica si el árbol es NULL o está vacío
+    TreeNode * current = tree->root; // Inicializa el nodo actual como la raíz
     return NULL;
 }
 
 Pair * nextTreeMap(TreeMap * tree) {
+    if (tree == NULL || tree->current == NULL) return NULL; // Verifica si el árbol es NULL o el nodo actual es NULL
+    TreeNode * current = tree->current; // Inicializa el nodo actual como el nodo actual del árbol
+    if (current->right != NULL) { // Si el nodo actual tiene un hijo derecho
+        current = current->right; // Mueve al hijo derecho
+        while (current->left != NULL) { // Busca el nodo más pequeño en el subárbol derecho
+            current = current->left; // Mueve al hijo izquierdo
+        }
+        tree->current = current; // Actualiza el nodo actual
+        return current->pair; // Retorna el par encontrado
+    } else { // Si no tiene hijo derecho, busca hacia arriba
+        TreeNode * parent = current->parent; // Inicializa el padre como el padre del nodo actual
+        while (parent != NULL && parent->right == current) { // Busca hacia arriba hasta encontrar un padre que sea hijo izquierdo
+            current = parent; // Mueve al padre
+            parent = parent->parent; // Mueve al abuelo
+        }
+        tree->current = parent; // Actualiza el nodo actual
+        return parent != NULL ? parent->pair : NULL; // Retorna el par encontrado o NULL si no hay más nodos
+    }
     return NULL;
 }
