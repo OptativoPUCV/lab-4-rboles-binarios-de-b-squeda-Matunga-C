@@ -45,8 +45,61 @@ TreeMap * createTreeMap(int (*lower_than) (void* key1, void* key2)) {
     return new;
 }
 
+Pair * searchTreeMap(TreeMap * tree, void* key) {
+    if (tree == NULL || tree->root == NULL) return NULL;
+    TreeNode * current = tree->root;
+    while (current != NULL) {
+        if (tree->lower_than(key, current->pair->key) == 0 && tree->lower_than(current->pair->key, key) == 0) {
+            tree->current = current; // Actualiza el nodo actual
+            return current->pair; // Retorna el par encontrado
+        } else if (tree->lower_than(key, current->pair->key)) {
+            current = current->left; // Busca en el subárbol izquierdo
+        } else {
+            current = current->right; // Busca en el subárbol derecho
+        }
+    }
+    tree->current = NULL; // Si no se encuentra el nodo, actualiza el nodo actual a NULL
+    return NULL;
+}
+
+/*Implemente la función void insertTreeMap(TreeMap * tree, void* key, void * value). Esta función inserta un nuevo dato (key,value) en el árbol y hace que el current apunte al nuevo nodo.
+Para insertar un dato, primero debe realizar una búsqueda para encontrar donde debería ubicarse. Luego crear el nuevo nodo y enlazarlo. Si la clave del dato ya existe retorne sin hacer nada (recuerde que el mapa no permite claves repetidas).
+*/
 
 void insertTreeMap(TreeMap * tree, void* key, void * value) {
+    if (tree == NULL) return; // Verifica si el árbol es NULL
+    if (searchTreeMap(tree, key) != NULL) return; // Verifica si la clave ya existe
+
+    TreeNode * newNode = createTreeNode(key, value); // Crea un nuevo nodo
+    if (newNode == NULL) return; // Verifica si la creación del nodo fue exitosa
+
+    if (tree->root == NULL) { // Si el árbol está vacío, el nuevo nodo se convierte en la raíz
+        tree->root = newNode;
+        tree->current = newNode; // Actualiza el nodo actual
+        return;
+    }
+
+    TreeNode * current = tree->root;
+    TreeNode * parent = NULL;
+
+    while (current != NULL) {
+        parent = current; // Guarda el padre del nodo actual
+        if (tree->lower_than(key, current->pair->key)) {
+            current = current->left; // Busca en el subárbol izquierdo
+        } else {
+            current = current->right; // Busca en el subárbol derecho
+        }
+    }
+
+    newNode->parent = parent; // Establece el padre del nuevo nodo
+
+    if (tree->lower_than(key, parent->pair->key)) {
+        parent->left = newNode; // Enlaza el nuevo nodo al subárbol izquierdo
+    } else {
+        parent->right = newNode; // Enlaza el nuevo nodo al subárbol derecho
+    }
+
+    tree->current = newNode; // Actualiza el nodo actual
 }
 
 TreeNode * minimum(TreeNode * x){
@@ -71,22 +124,6 @@ void eraseTreeMap(TreeMap * tree, void* key){
 
 
 
-Pair * searchTreeMap(TreeMap * tree, void* key) {
-    if (tree == NULL || tree->root == NULL) return NULL;
-    TreeNode * current = tree->root;
-    while (current != NULL) {
-        if (tree->lower_than(key, current->pair->key) == 0 && tree->lower_than(current->pair->key, key) == 0) {
-            tree->current = current; // Actualiza el nodo actual
-            return current->pair; // Retorna el par encontrado
-        } else if (tree->lower_than(key, current->pair->key)) {
-            current = current->left; // Busca en el subárbol izquierdo
-        } else {
-            current = current->right; // Busca en el subárbol derecho
-        }
-    }
-    tree->current = NULL; // Si no se encuentra el nodo, actualiza el nodo actual a NULL
-    return NULL;
-}
 
 
 Pair * upperBound(TreeMap * tree, void* key) {
